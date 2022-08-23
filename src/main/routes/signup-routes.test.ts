@@ -17,6 +17,6 @@ describe('SignUp Routes', () => {
   })
 
   test('Should return an account on success', async () => {
-    await request(app).post('/api/signup').send({ name: '', email: '', password: '', passwordConfirmation: '' }).expect(200)
+    await request(app).post('/api/signup').send({ name: 'Demetrius', email: 'demetriusbantimvas@gmail.com', password: '12345', passwordConfirmation: '12345' }).expect(200)
   })
 })
