@@ -12,7 +12,7 @@ const makeController = (): Controller => {
       const httpResponse: HttpResponse = {
         statusCode: 200,
         body: {
-          name: 'Rodrigo'
+          name: 'Demetrius'
         }
       }
       return new Promise(resolve => resolve(httpResponse))
@@ -44,5 +44,25 @@ describe('LogController Decorator',() => {
     }
     await sut.handle(httpRequest)
     expect(handleSpy).toHaveBeenCalledWith(httpRequest)
+  })
+
+  test('Should return the same result of the controller', async () => {
+    const {sut,controllerStub} = makeSut()
+    const handleSpy = jest.spyOn(controllerStub, 'handle')
+    const httpRequest = {
+      body: {
+        email: 'any_mail@mail.com',
+        name: 'any_name',
+        password: 'any_password',
+        passwordConfirmation: 'any_password'
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual({
+      statusCode:200,
+      body: {
+        name: 'Demetrius'
+      }
+    })
   })
 })
