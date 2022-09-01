@@ -1,4 +1,4 @@
-import { HttpResponse,Controller,HttRequest } from '../../presentation/protocols'
+import { HttpResponse,Controller,HttpRequest } from '../../presentation/protocols'
 import { LogControllerDecorator } from './log'
 import { serverError } from '../../presentation/helpers/http-helper'
 import {LogErrorRepository} from '../../data/protocols/log-error.repository'
@@ -11,7 +11,7 @@ interface SutTypes{
 
 const makeLogErrorRepository = (): LogErrorRepository => {
   class LogErrorRepositoryStub implements LogErrorRepository{
-    async log(stack: string): Promise<void> {
+    async logError(stack: string): Promise<void> {
       return new Promise(resolve => resolve())
     }
   }
@@ -20,7 +20,7 @@ const makeLogErrorRepository = (): LogErrorRepository => {
 
 const makeController = (): Controller => {
   class ControllerStub implements Controller{
-    async handle(httpRequest: HttRequest): Promise<HttpResponse>{
+    async handle(httpRequest: HttpRequest): Promise<HttpResponse>{
       const httpResponse: HttpResponse = {
         statusCode: 200,
         body: {
@@ -83,7 +83,7 @@ describe('LogController Decorator',() => {
     const fakeError = new Error()
     fakeError.stack = 'any_stack'
     const error = serverError(fakeError)
-    const logSpy = jest.spyOn(logErrorRepositoryStub, 'log')
+    const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
     jest.spyOn(controllerStub, 'handle').mockRejectedValueOnce(new Promise(resolve => resolve(error)))
     const httpRequest = {
       body: {
