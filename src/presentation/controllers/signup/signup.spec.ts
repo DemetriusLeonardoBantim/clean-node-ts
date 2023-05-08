@@ -29,7 +29,6 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'valid_password'
 })
 
-
 const makeFakeRequest = (): HttpRequest => ({
   body: {
     email: 'any_email@mail.com',
@@ -143,7 +142,7 @@ describe('SignUp Controller', () => {
 
 test('Should return 200 if valid data is provided', async () => {
   const { sut } = makeSut()
-  
+
   const httpResponse = await sut.handle(makeFakeRequest())
   expect(httpResponse).toEqual(ok(makeAddAccount()))
   expect(httpResponse.statusCode).toBe(200)
