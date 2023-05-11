@@ -50,6 +50,7 @@ describe('Login Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
+        name: 'any_name',
         password: 'any_password'
       }
     }
@@ -60,7 +61,8 @@ describe('Login Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        email: 'any_email@mail.com'
+        name: 'any_name',
+        password: 'any_password'
       }
     }
     const httpResponse = await sut.handle(httpRequest)
